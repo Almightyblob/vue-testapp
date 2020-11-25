@@ -1,28 +1,51 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div>
+    <h3>
+      Identicon Creator
+    </h3>
+
+    <div>
+      Input: 
+      <input class="border"
+        v-on:input="onInput"  
+      />
+    </div>
+
+    <div>
+      Output:
+      <div v-html="identicon">
+
+      </div>
+    </div>
+
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import * as jdenticon from 'jdenticon';
 
 export default {
   name: 'App',
-  components: {
-    HelloWorld
+  data: () => {
+    return {
+      textInput:''
+      }
+  },
+  computed: {
+    identicon: function(){
+      return jdenticon.toSvg(this.textInput, 200)
+    }
+  },
+  methods: {
+    onInput: function(event) {
+      this.textInput = event.target.value;
+      console.log(this.textInput)
+    }
   }
 }
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+@import "css/tailwind.css";
+
 </style>
